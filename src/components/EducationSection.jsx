@@ -101,7 +101,7 @@ const EducationSection = () => {
                 {/* Institution */}
                 <div className="flex items-start gap-2.5 mb-3">
                   <FaMapMarkerAlt className="text-neon-purple mt-1 flex-shrink-0 text-xs" />
-                  <span className="font-rajdhani text-slate-300 text-base leading-snug">{edu.institution}</span>
+                  <span className="font-rajdhani text-slate-300 text-base leading-snug">{localized(edu.institution)}</span>
                 </div>
 
                 {/* Period */}
