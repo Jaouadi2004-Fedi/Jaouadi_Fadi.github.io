@@ -7,7 +7,7 @@ export default {
   "nav.education": "Formation",
   "nav.contact": "Contact",
   "nav.portfolio": "PORTFOLIO",
-  "nav.hireMe": "EMBAUCHEZ-MOI",
+  "nav.hireMe": "RECRUTEZ-MOI",
   "nav.navigation": "Navigation",
 
   "hero.available": "DISPONIBLE POUR OPPORTUNITÉS",
@@ -108,7 +108,6 @@ export default {
   "contact.successTitle": "Message Envoyé !",
   "contact.successSub": "Merci de m'avoir contacté. Je vous répondrai sous 24 heures.",
   "contact.sendAnother": "ENVOYER UN AUTRE",
-  "contact.chars": "car.",
 
   "openTo.fulltime": "CDI / CDD",
   "openTo.freelance": "Projets Freelance",

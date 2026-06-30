@@ -121,7 +121,7 @@ export const projects = [
       "Firebase",
       "Firestore",
       "Firebase Auth",
-      "AI / ML",
+      "AI",
       "Gemini API",
       "Tailwind CSS",
       "Framer Motion",
@@ -247,7 +247,10 @@ export const education = [
       fr: "Licence en Technologies Informatiques",
     },
     mention: "Mention Très Bien",
-    institution: "Institut Supérieur des Technologies de l'Information",
+    institution: {
+      en: "Higher Institute of Technological Studies of Nabeul (ISETN)",
+      fr: "Institut Supérieur des Etude Technologiques de Nabeul (ISETN)",
+    },
     period: "2023 – 2026",
     description: {
       en: "Three-year degree in Information Technologies covering full-stack development, software engineering, databases, networking, and system administration. Graduated with Highest Honours.",
