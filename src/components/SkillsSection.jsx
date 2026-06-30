@@ -7,6 +7,7 @@ import {
 } from 'react-icons/si';
 import { FaJava } from 'react-icons/fa';
 import { skills } from '../data/portfolioData';
+import { useLanguage } from '../context/LanguageContext';
 
 const iconMap = {
   SiReact: <SiReact />,
@@ -103,6 +104,7 @@ const SkillCard = ({ skill, index, inView }) => {
 };
 
 const SkillsSection = () => {
+  const { t } = useLanguage();
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
   const [activeCategory, setActiveCategory] = useState('All');
 
@@ -128,13 +130,13 @@ const SkillsSection = () => {
           className="text-center mb-12"
         >
           <div className="font-mono-tech text-neon-purple text-sm tracking-widest mb-3">
-            &gt; LOAD_SKILLS.sh
+            &gt; {t('skills.terminal')}
           </div><br /><br />
           <h2 className="font-orbitron text-4xl sm:text-5xl font-bold section-title text-white">
-            Tech <span className="neon-text-purple">Arsenal</span>
+            {t('skills.title')} <span className="neon-text-purple">{t('skills.titleSpan')}</span>
           </h2>
           <p className="text-slate-400 mt-6 max-w-xl mx-auto font-rajdhani text-lg">
-            <br />Technologies and tools I wield to build powerful applications
+            <br />{t('skills.subtitle')}
           </p><br />
         </motion.div>
 
@@ -154,7 +156,7 @@ const SkillsSection = () => {
                 : 'border border-dark-border text-slate-400 hover:border-neon-cyan/50 hover:text-neon-cyan'
                 }`}
             >
-              {cat}
+              {cat === 'All' ? t('skills.all') : cat}
             </button>
           ))}
         </motion.div><br /><br />

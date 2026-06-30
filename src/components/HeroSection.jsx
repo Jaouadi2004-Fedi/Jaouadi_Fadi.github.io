@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { TypeAnimation } from 'react-type-animation';
 import { FaGithub, FaLinkedin, FaDownload, FaChevronDown } from 'react-icons/fa';
 import { personalInfo, stats } from '../data/portfolioData';
+import { useLanguage } from '../context/LanguageContext';
 
 const CyberpunkGrid = () => {
   const canvasRef = useRef(null);
@@ -83,6 +84,7 @@ const CyberpunkGrid = () => {
 };
 
 const HeroSection = () => {
+  const { t } = useLanguage();
   return (
     <section
       id="hero"
@@ -132,7 +134,7 @@ const HeroSection = () => {
           className="inline-flex items-center gap-2 px-4 py-2 mb-8 rounded-full border border-neon-cyan/30 bg-neon-cyan/5 text-neon-cyan font-mono-tech text-xs tracking-widest"
         >
           <span className="w-2 h-2 rounded-full bg-neon-cyan animate-pulse" />
-          AVAILABLE FOR OPPORTUNITIES
+          {t('hero.available')}
           <span className="w-2 h-2 rounded-full bg-neon-cyan animate-pulse" />
         </motion.div>
 
@@ -169,11 +171,11 @@ const HeroSection = () => {
           </span>
           <TypeAnimation
             sequence={[
-              'Full-Stack Developer', 2000,
-              'React.js Engineer', 2000,
-              'Java & Spring Boot Dev', 2000,
-              'Software Architect', 2000,
-              'UI/UX Enthusiast', 2000,
+              t('hero.role1'), 2000,
+              t('hero.role2'), 2000,
+              t('hero.role3'), 2000,
+              t('hero.role4'), 2000,
+              t('hero.role5'), 2000,
             ]}
             wrapper="span"
             speed={50}
@@ -190,9 +192,9 @@ const HeroSection = () => {
           transition={{ duration: 0.6, delay: 0.5 }}
           className="text-slate-400 text-base sm:text-lg max-w-2xl mx-auto mb-10 font-rajdhani leading-relaxed"
         >
-          Crafting high-performance web applications with modern stacks.
+          {t('hero.bio1')}
           <span className="text-neon-purple"> Licence en Technologies Informatiques</span> — Mention Très Bien.
-          Turning complex problems into elegant digital solutions.
+          {t('hero.bio2')}
         </motion.p> <br />
 
         {/* CTA Buttons */}
@@ -212,7 +214,7 @@ const HeroSection = () => {
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
           >
-            VIEW PROJECTS
+            {t('hero.viewProjects')}
             <motion.span
               animate={{ x: [0, 4, 0] }}
               transition={{ duration: 1.5, repeat: Infinity }}
@@ -232,7 +234,7 @@ const HeroSection = () => {
             whileTap={{ scale: 0.97 }}
           >
             <FaDownload className="text-xs" />
-            CONTACT ME
+            {t('hero.contactMe')}
           </motion.a>
         </motion.div><br />
 
@@ -249,7 +251,7 @@ const HeroSection = () => {
                 {stat.value}{stat.suffix}
               </div>
               <div className="font-rajdhani text-xs text-slate-500 tracking-wider uppercase mt-1">
-                {stat.label}
+                {t('stats.' + stat.id)}
               </div>
             </div>
           ))}
@@ -262,7 +264,7 @@ const HeroSection = () => {
         animate={{ y: [0, 8, 0] }}
         transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
       >
-        <span className="font-orbitron text-xs tracking-widest">SCROLL</span>
+        <span className="font-orbitron text-xs tracking-widest">{t('hero.scroll')}</span>
         <FaChevronDown className="text-neon-cyan" />
       </motion.div>
     </section>

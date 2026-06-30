@@ -7,51 +7,7 @@ import {
   FaPhone, FaCommentDots,
 } from 'react-icons/fa';
 import { personalInfo } from '../data/portfolioData';
-
-/* ── Quick-contact cards ── */
-const contactCards = [
-  {
-    icon: <FaEnvelope />,
-    label: 'Send an Email',
-    value: personalInfo.email,
-    sub: 'Fastest way to reach me',
-    href: `mailto:${personalInfo.email}`,
-    color: '#00f5ff',
-  },
-  {
-    icon: <FaLinkedin />,
-    label: 'LinkedIn',
-    value: 'Jaouadi Fadi',
-    sub: 'Connect professionally',
-    href: personalInfo.linkedin,
-    color: '#0a66c2',
-  },
-  {
-    icon: <FaGithub />,
-    label: 'GitHub',
-    value: 'See my projects',
-    sub: 'Explore my open-source work',
-    href: personalInfo.github,
-    color: '#e2e8f0',
-  },
-];
-
-/* ── What I'm open to ── */
-const openTo = [
-  { icon: <FaBriefcase />, text: 'Full-Time Positions', color: '#00f5ff' },
-  { icon: <FaCommentDots />, text: 'Freelance Projects', color: '#7b2fff' },
-  { icon: <FaPhone />, text: 'Technical Consultations', color: '#ff0080' },
-  { icon: <FaClock />, text: 'Remote Collaboration', color: '#00ff88' },
-];
-
-/* ── Subject presets for hiring persons ── */
-const subjectPresets = [
-  'Job Opportunity',
-  'Freelance Project',
-  'Collaboration',
-  'Technical Consultation',
-  'Other',
-];
+import { useLanguage } from '../context/LanguageContext';
 
 /* ── Input field component ── */
 const Field = ({ label, required, children, focused }) => (
@@ -73,7 +29,50 @@ const Field = ({ label, required, children, focused }) => (
 );
 
 const ContactSection = () => {
+  const { t } = useLanguage();
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.08 });
+
+  const contactCards = [
+    {
+      icon: <FaEnvelope />,
+      label: t('contact.emailLabel'),
+      value: personalInfo.email,
+      sub: t('contact.emailSub'),
+      href: `mailto:${personalInfo.email}`,
+      color: '#00f5ff',
+    },
+    {
+      icon: <FaLinkedin />,
+      label: 'LinkedIn',
+      value: 'Jaouadi Fadi',
+      sub: t('contact.linkedinSub'),
+      href: personalInfo.linkedin,
+      color: '#0a66c2',
+    },
+    {
+      icon: <FaGithub />,
+      label: 'GitHub',
+      value: t('contact.githubSub'),
+      sub: t('contact.githubSub'),
+      href: personalInfo.github,
+      color: '#e2e8f0',
+    },
+  ];
+
+  const openTo = [
+    { icon: <FaBriefcase />, text: t('openTo.fulltime'), color: '#00f5ff' },
+    { icon: <FaCommentDots />, text: t('openTo.freelance'), color: '#7b2fff' },
+    { icon: <FaPhone />, text: t('openTo.consulting'), color: '#ff0080' },
+    { icon: <FaClock />, text: t('openTo.remote'), color: '#00ff88' },
+  ];
+
+  const subjectPresets = [
+    t('contact.presetJob'),
+    t('contact.presetFreelance'),
+    t('contact.presetCollaboration'),
+    t('contact.presetConsulting'),
+    t('contact.presetOther'),
+  ];
   const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
   const [focused, setFocused] = useState('');
   const [status, setStatus] = useState('idle'); // idle | sending | success | error
@@ -116,14 +115,14 @@ const ContactSection = () => {
           className="text-center mb-20"
         >
           <div className="font-mono-tech text-neon-cyan text-sm tracking-[0.25em] mb-4">
-            &gt; INIT_CONTACT.sh
+            &gt; {t('contact.terminal')}
           </div><br /><br />
           <h2 className="font-orbitron text-4xl sm:text-5xl font-bold section-title text-white">
-            Let's <span className="neon-text-cyan">Connect</span>
+            {t('contact.title')} <span className="neon-text-cyan">{t('contact.titleSpan')}</span>
           </h2><br />
           <p className="text-slate-400 mt-5 max-w-lg mx-auto font-rajdhani text-lg leading-relaxed">
-            Open to full-time roles, freelance projects & technical collaborations.
-            I typically respond <span className="text-neon-cyan font-semibold">within 24 hours</span>.
+            {t('contact.subtitle')}
+            {' '}<span className="text-neon-cyan font-semibold">{t('contact.subtitleHighlight')}</span>.
           </p><br />
         </motion.div>
 
@@ -168,7 +167,7 @@ const ContactSection = () => {
               }}
             >
               <div className="font-mono-tech text-[10px] text-neon-cyan tracking-[0.22em] uppercase mb-4">
-                Quick Contact
+                {t('contact.quickContact')}
               </div>
               <div className="space-y-3">
                 {contactCards.map((card, i) => (
@@ -208,9 +207,9 @@ const ContactSection = () => {
             >
               <div className="w-3 h-3 rounded-full bg-green-400 animate-pulse flex-shrink-0" />
               <div>
-                <div className="font-orbitron text-xs text-green-400 font-bold">AVAILABLE FOR WORK</div>
+                <div className="font-orbitron text-xs text-green-400 font-bold">{t('contact.available')}</div>
                 <div className="font-rajdhani text-xs text-slate-500 mt-0.5">
-                  Based in Tunisia · Open to Remote · Relocatable
+                  {t('contact.availableSub')}
                 </div>
               </div>
             </div>
@@ -220,12 +219,12 @@ const ContactSection = () => {
               className="rounded-2xl p-5"
               style={{ border: '1px solid rgba(123,47,255,0.2)', background: 'rgba(123,47,255,0.04)' }}
             >
-              <div className="font-mono-tech text-[10px] text-neon-purple tracking-[0.2em] uppercase mb-3">Response Time</div>
+              <div className="font-mono-tech text-[10px] text-neon-purple tracking-[0.2em] uppercase mb-3">{t('contact.responseTime')}</div>
               <div className="flex items-center gap-3">
                 <FaClock className="text-neon-purple text-sm" />
                 <div>
-                  <p className="font-orbitron text-sm text-white font-bold">&lt; 24 hours</p>
-                  <p className="font-rajdhani text-xs text-slate-500">I check messages daily</p>
+                  <p className="font-orbitron text-sm text-white font-bold">{t('contact.responseValue')}</p>
+                  <p className="font-rajdhani text-xs text-slate-500">{t('contact.responseSub')}</p>
                 </div>
               </div>
             </div>
@@ -235,12 +234,12 @@ const ContactSection = () => {
               className="rounded-2xl p-5"
               style={{ border: '1px solid rgba(0,245,255,0.1)', background: 'rgba(0,245,255,0.03)' }}
             >
-              <div className="font-mono-tech text-[10px] text-neon-cyan tracking-[0.2em] uppercase mb-3">Location</div>
+              <div className="font-mono-tech text-[10px] text-neon-cyan tracking-[0.2em] uppercase mb-3">{t('contact.location')}</div>
               <div className="flex items-center gap-3">
                 <FaMapMarkerAlt className="text-neon-cyan text-sm" />
                 <div>
                   <p className="font-orbitron text-sm text-white font-bold">Tunisia</p>
-                  <p className="font-rajdhani text-xs text-slate-500">GMT+1 · Open to full remote</p>
+                  <p className="font-rajdhani text-xs text-slate-500">{t('contact.locationSub')}</p>
                 </div>
               </div>
             </div>
@@ -262,7 +261,7 @@ const ContactSection = () => {
               }}
             >
               <div className="font-mono-tech text-[10px] text-neon-cyan tracking-[0.22em] uppercase mb-6">
-                // Send a Message
+                {t('contact.formTitle')}
               </div><br />
 
               <AnimatePresence mode="wait">
@@ -281,16 +280,16 @@ const ContactSection = () => {
                     ><br />
                       <FaCheckCircle className="text-6xl text-neon-cyan mx-auto" />
                     </motion.div>
-                    <div className="font-orbitron text-2xl text-white">Message Sent!</div>
+                    <div className="font-orbitron text-2xl text-white">{t('contact.successTitle')}</div>
                     <p className="text-slate-400 font-rajdhani text-base">
-                      Thank you for reaching out. I'll get back to you within 24 hours.
+                      {t('contact.successSub')}
                     </p>
                     <motion.button
                       onClick={() => setStatus('idle')}
                       className="btn-outline-cyan mt-4"
                       whileHover={{ scale: 1.04 }}
                     >
-                      SEND ANOTHER
+                      {t('contact.sendAnother')}
                     </motion.button>
                   </motion.div>
                 ) : (
@@ -303,21 +302,21 @@ const ContactSection = () => {
                   >
                     {/* Name + Email */}
                     <div className="grid sm:grid-cols-2 gap-5">
-                      <Field label="Your Name" required focused={focused === 'name'}>
+                      <Field label={t('contact.nameLabel')} required focused={focused === 'name'}>
                         <input
                           type="text" name="name" value={formData.name}
                           onChange={handleChange} required
-                          placeholder="Jaouadi Fadi"
+                          placeholder={t('contact.namePlaceholder')}
                           className={inputClass}
                           onFocus={() => handleFocus('name')}
                           onBlur={handleBlur}
                         />
                       </Field>
-                      <Field label="Email Address" required focused={focused === 'email'}>
+                      <Field label={t('contact.emailLabel')} required focused={focused === 'email'}>
                         <input
                           type="email" name="email" value={formData.email}
                           onChange={handleChange} required
-                          placeholder="your@email.com"
+                          placeholder={t('contact.emailPlaceholder')}
                           className={inputClass}
                           onFocus={() => handleFocus('email')}
                           onBlur={handleBlur}
@@ -326,11 +325,11 @@ const ContactSection = () => {
                     </div><br />
 
                     {/* Subject + presets */}
-                    <Field label="Subject" required focused={focused === 'subject'}>
+                    <Field label={t('contact.subjectLabel')} required focused={focused === 'subject'}>
                       <input
                         type="text" name="subject" value={formData.subject}
                         onChange={handleChange} required
-                        placeholder="Job Opportunity / Project / Collaboration"
+                        placeholder={t('contact.subjectPlaceholder')}
                         className={inputClass}
                         onFocus={() => handleFocus('subject')}
                         onBlur={handleBlur}
@@ -356,18 +355,18 @@ const ContactSection = () => {
                     </Field>
 
                     {/* Message */}
-                    <Field label="Message" required focused={focused === 'message'}>
+                    <Field label={t('contact.messageLabel')} required focused={focused === 'message'}>
                       <textarea
                         name="message" value={formData.message}
                         onChange={handleChange} required rows={5}
-                        placeholder="Tell me about the opportunity, project, or question..."
+                        placeholder={t('contact.messagePlaceholder')}
                         className={`${inputClass} resize-none`}
                         onFocus={() => handleFocus('message')}
                         onBlur={handleBlur}
                       />
                       <div className="text-right mt-1.5">
                         <span className="font-mono-tech text-[10px] text-slate-600">
-                          {formData.message.length} chars
+                          {formData.message.length} {t('contact.chars')}
                         </span>
                       </div>
                     </Field>
@@ -388,18 +387,18 @@ const ContactSection = () => {
                             animate={{ rotate: 360 }}
                             transition={{ duration: 0.8, repeat: Infinity, ease: 'linear' }}
                           />
-                          TRANSMITTING...
+                          {t('contact.transmitting')}
                         </>
                       ) : (
                         <>
                           <FaPaperPlane />
-                          SEND MESSAGE
+                          {t('contact.send')}
                         </>
                       )}
                     </motion.button><br />
 
                     <p className="font-rajdhani text-xs text-slate-600 text-center">
-                      No spam. Your information stays private and is never shared.
+                      {t('contact.privacy')}
                     </p><br />
                   </motion.form>
                 )}

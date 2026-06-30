@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaBars, FaTimes, FaTerminal } from 'react-icons/fa';
-
-const navLinks = [
-  { label: 'Home', href: '#hero' },
-  { label: 'About', href: '#about' },
-  { label: 'Skills', href: '#skills' },
-  { label: 'Experience', href: '#experience' },
-  { label: 'Projects', href: '#projects' },
-  { label: 'Education', href: '#education' },
-  { label: 'Contact', href: '#contact' },
-];
+import { useLanguage } from '../context/LanguageContext';
 
 const Navbar = () => {
+  const { t } = useLanguage();
+
+  const navLinks = [
+    { label: t('nav.home'), href: '#hero' },
+    { label: t('nav.about'), href: '#about' },
+    { label: t('nav.skills'), href: '#skills' },
+    { label: t('nav.experience'), href: '#experience' },
+    { label: t('nav.projects'), href: '#projects' },
+    { label: t('nav.education'), href: '#education' },
+    { label: t('nav.contact'), href: '#contact' },
+  ];
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState('hero');
   const [menuOpen, setMenuOpen] = useState(false);
@@ -74,7 +76,7 @@ const Navbar = () => {
               </div>
               <div className="hidden sm:flex flex-col leading-none">
                 <span className="font-orbitron font-bold text-base neon-text-cyan tracking-widest">JF</span>
-                <span className="font-mono-tech text-[9px] text-slate-500 tracking-[0.25em] mt-0.5">PORTFOLIO</span>
+                <span className="font-mono-tech text-[9px] text-slate-500 tracking-[0.25em] mt-0.5">{t('nav.portfolio')}</span>
               </div>
             </motion.a>
 
@@ -127,7 +129,7 @@ const Navbar = () => {
                 }}
                 whileTap={{ scale: 0.96 }}
               >
-                HIRE ME
+                {t('nav.hireMe')}
               </motion.a>
 
               <button
@@ -188,7 +190,7 @@ const Navbar = () => {
 
               {/* Links */}
               <nav className="flex flex-col gap-1 px-4 pt-6 flex-1 overflow-y-auto">
-                <p className="font-mono-tech text-[9px] text-slate-600 tracking-[0.3em] uppercase px-3 mb-2">Navigation</p>
+                <p className="font-mono-tech text-[9px] text-slate-600 tracking-[0.3em] uppercase px-3 mb-2">{t('nav.navigation')}</p>
                 {navLinks.map((link, i) => {
                   const id = link.href.replace('#', '');
                   const isActive = active === id;
@@ -227,7 +229,7 @@ const Navbar = () => {
                   className="btn-primary block text-center w-full"
                   style={{ fontSize: '0.7rem', letterSpacing: '0.15em' }}
                 >
-                  HIRE ME
+                  {t('nav.hireMe')}
                 </a>
               </div>
             </motion.div>

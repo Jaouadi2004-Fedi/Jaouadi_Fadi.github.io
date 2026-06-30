@@ -5,23 +5,25 @@ import {
   FaMapMarkerAlt, FaArrowUp, FaCode,
 } from 'react-icons/fa';
 import { personalInfo } from '../data/portfolioData';
-
-const navLinks = [
-  { label: 'About', href: '#about' },
-  { label: 'Skills', href: '#skills' },
-  { label: 'Experience', href: '#experience' },
-  { label: 'Projects', href: '#projects' },
-  { label: 'Education', href: '#education' },
-  { label: 'Contact', href: '#contact' },
-];
-
-const socials = [
-  { icon: <FaGithub />, href: personalInfo.github, label: 'GitHub', sub: 'See my code', color: '#e2e8f0' },
-  { icon: <FaLinkedin />, href: personalInfo.linkedin, label: 'LinkedIn', sub: 'Connect with me', color: '#0a66c2' },
-  { icon: <FaEnvelope />, href: `mailto:${personalInfo.email}`, label: 'Email', sub: personalInfo.email, color: '#00f5ff' },
-];
+import { useLanguage } from '../context/LanguageContext';
 
 const Footer = () => {
+  const { t } = useLanguage();
+
+  const navLinks = [
+    { label: t('nav.about'), href: '#about' },
+    { label: t('nav.skills'), href: '#skills' },
+    { label: t('nav.experience'), href: '#experience' },
+    { label: t('nav.projects'), href: '#projects' },
+    { label: t('nav.education'), href: '#education' },
+    { label: t('nav.contact'), href: '#contact' },
+  ];
+
+  const socials = [
+    { icon: <FaGithub />, href: personalInfo.github, label: 'GitHub', sub: t('footer.connect'), color: '#e2e8f0' },
+    { icon: <FaLinkedin />, href: personalInfo.linkedin, label: 'LinkedIn', sub: t('footer.connect'), color: '#0a66c2' },
+    { icon: <FaEnvelope />, href: `mailto:${personalInfo.email}`, label: 'Email', sub: personalInfo.email, color: '#00f5ff' },
+  ];
   const [copied, setCopied] = useState(false);
 
   const scrollTo = (href) => { const el = document.querySelector(href); if (el) el.scrollIntoView({ behavior: 'smooth' }); };
@@ -55,14 +57,13 @@ const Footer = () => {
                         flex flex-col md:flex-row items-center justify-between gap-8">
           <div className="text-center md:text-left">
             <div className="font-mono-tech text-[10px] text-neon-cyan tracking-[0.25em] mb-2 uppercase">
-              Available for opportunities
+              {t('footer.available')}
             </div>
             <h3 className="font-orbitron text-2xl sm:text-3xl font-bold text-white leading-tight">
-              Let's build something <span className="neon-text-cyan">great together</span>
+              {t('footer.tagline')} <span className="neon-text-cyan">{t('footer.taglineSpan')}</span>
             </h3>
             <p className="font-rajdhani text-slate-400 text-base mt-2.5 max-w-md">
-              Open to full-time roles, freelance projects, and exciting collaborations.
-              I respond within 24 hours.
+              {t('footer.subtitle')}
             </p>
           </div>
           <div className="flex flex-col sm:flex-row items-center gap-3 flex-shrink-0">
@@ -74,7 +75,7 @@ const Footer = () => {
               whileTap={{ scale: 0.97 }}
             >
               <FaEnvelope />
-              HIRE ME
+              {t('footer.hireMe')}
             </motion.a>
             <motion.button
               onClick={copyEmail}
@@ -83,7 +84,7 @@ const Footer = () => {
               whileHover={{ scale: 1.04, background: 'rgba(0,245,255,0.07)' }}
               whileTap={{ scale: 0.97 }}
             >
-              {copied ? '✓ COPIED!' : 'COPY EMAIL'}
+              {copied ? `✓ ${t('footer.copied')}` : t('footer.copyEmail')}
             </motion.button>
           </div>
         </div>
@@ -107,27 +108,26 @@ const Footer = () => {
                 </div>
                 <div>
                   <span className="font-orbitron font-bold text-base neon-text-cyan tracking-widest">JF</span>
-                  <p className="font-mono-tech text-[9px] text-slate-500 tracking-[0.25em]">PORTFOLIO</p>
+                  <p className="font-mono-tech text-[9px] text-slate-500 tracking-[0.25em]">{t('footer.portfolio')}</p>
                 </div>
               </div>
               <p className="font-rajdhani text-slate-400 text-sm leading-relaxed mb-6">
-                Full-Stack Developer passionate about crafting modern, scalable web experiences
-                with clean code, pixel-perfect UI, and AI-powered features.
+                {t('footer.description')}
               </p>
               <div className="flex items-center gap-2 mb-2.5 font-mono-tech text-xs text-slate-500">
                 <FaMapMarkerAlt className="text-neon-cyan text-xs" />
-                Tunisia — Open to Remote
+                {t('footer.location')}
               </div>
               <div className="flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-                <span className="font-mono-tech text-xs text-green-400">AVAILABLE FOR WORK</span>
+                <span className="font-mono-tech text-xs text-green-400">{t('footer.available2')}</span>
               </div>
             </div>
 
             {/* Col 2 — Navigation */}
             <div>
               <div className="h-10 flex items-center mb-8">
-                <p className="font-mono-tech text-[10px] text-slate-500 tracking-[0.25em] uppercase">Navigation</p>
+                <p className="font-mono-tech text-[10px] text-slate-500 tracking-[0.25em] uppercase">{t('footer.navigation')}</p>
               </div>
               <nav className="grid grid-cols-2 gap-x-6 gap-y-4">
                 {navLinks.map((link) => (
@@ -147,7 +147,7 @@ const Footer = () => {
             {/* Col 3 — Connect */}
             <div>
               <div className="h-10 flex items-center mb-8">
-                <p className="font-mono-tech text-[10px] text-slate-500 tracking-[0.25em] uppercase">Connect</p>
+                <p className="font-mono-tech text-[10px] text-slate-500 tracking-[0.25em] uppercase">{t('footer.connect')}</p>
               </div>
               <div className="space-y-4">
                 {socials.map((s) => (
@@ -181,7 +181,7 @@ const Footer = () => {
           <div className="mt-20 pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-6">
             <div className="font-mono-tech text-xs text-slate-600 flex items-center gap-2 flex-wrap justify-center sm:justify-start">
               <FaCode className="text-neon-cyan text-xs" />
-              Built with React.js + Firebase + Tailwind CSS
+              {t('footer.builtWith')}
               <span className="text-slate-700 hidden sm:inline">·</span>
               <span>© {new Date().getFullYear()} <span className="text-neon-cyan">Jaouadi Fadi</span></span>
             </div>
@@ -192,7 +192,7 @@ const Footer = () => {
                 className="w-9 h-9 flex items-center justify-center rounded-lg border border-neon-cyan/20 text-neon-cyan/50 hover:text-neon-cyan hover:border-neon-cyan/50 transition-all duration-300"
                 whileHover={{ scale: 1.1, boxShadow: '0 0 14px rgba(0,245,255,0.25)' }}
                 whileTap={{ scale: 0.95 }}
-                title="Back to top"
+                title={t('footer.backToTop')}
               >
                 <FaArrowUp className="text-xs" />
               </motion.button>

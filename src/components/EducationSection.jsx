@@ -3,8 +3,10 @@ import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { FaGraduationCap, FaStar, FaBook, FaMapMarkerAlt, FaCalendarAlt, FaMedal } from 'react-icons/fa';
 import { education } from '../data/portfolioData';
+import { useLanguage } from '../context/LanguageContext';
 
 const EducationSection = () => {
+  const { t, localized, language } = useLanguage();
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.08 });
   const edu = education[0];
 
@@ -31,13 +33,13 @@ const EducationSection = () => {
           className="text-center mb-20"
         >
           <div className="font-mono-tech text-neon-purple text-sm tracking-[0.25em] mb-4">
-            &gt; cat education.md
+            &gt; {t('edu.terminal')}
           </div><br /><br />
           <h2 className="font-orbitron text-4xl sm:text-5xl font-bold section-title text-white">
-            <span className="neon-text-purple">Education</span>
+            <span className="neon-text-purple">{t('edu.title')}</span>
           </h2><br />
           <p className="font-rajdhani text-slate-400 mt-5 text-lg max-w-md mx-auto">
-            Academic background and core competencies
+            {t('edu.subtitle')}
           </p><br /><br />
         </motion.div>
 
@@ -82,12 +84,12 @@ const EducationSection = () => {
 
                 {/* Label */}
                 <div className="font-mono-tech text-[10px] text-neon-purple tracking-[0.25em] mb-3 uppercase">
-                  Academic Degree
+                  {t('edu.academicDegree')}
                 </div><br />
 
                 {/* Degree title */}
                 <h3 className="font-orbitron text-xl sm:text-2xl text-white font-bold mb-4 leading-snug">
-                  {edu.degree}
+                  {localized(edu.degree)}
                 </h3><br />
 
                 {/* Mention badge */}
@@ -119,8 +121,8 @@ const EducationSection = () => {
                 >
                   <FaMedal className="text-yellow-400 text-lg" />
                   <div>
-                    <div className="font-orbitron text-xs text-yellow-300 tracking-wider font-bold">TOP GRADUATE</div>
-                    <div className="font-mono-tech text-[10px] text-yellow-500/70 tracking-widest mt-0.5">MENTION TRÈS BIEN</div>
+                    <div className="font-orbitron text-xs text-yellow-300 tracking-wider font-bold">{t('edu.topGraduate')}</div>
+                    <div className="font-mono-tech text-[10px] text-yellow-500/70 tracking-widest mt-0.5">{edu.mention}</div>
                   </div>
                 </motion.div>
               </div>
@@ -129,9 +131,9 @@ const EducationSection = () => {
               <div className="space-y-8">
                 {/* Description */}
                 <div>
-                  <div className="font-mono-tech text-[10px] text-slate-500 tracking-[0.2em] uppercase mb-3">About</div><br />
+                  <div className="font-mono-tech text-[10px] text-slate-500 tracking-[0.2em] uppercase mb-3">{t('edu.about')}</div><br />
                   <p className="font-rajdhani text-slate-300 text-base leading-[1.85] tracking-wide">
-                    {edu.description}
+                    {localized(edu.description)}
                   </p>
                 </div><br />
 
@@ -142,7 +144,7 @@ const EducationSection = () => {
                 <div>
                   <div className="font-mono-tech text-[10px] text-neon-cyan tracking-[0.2em] uppercase mb-4 flex items-center gap-2">
                     <FaBook className="text-xs" />
-                    Key Modules
+                    {t('edu.keyModules')}
                   </div><br />
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                     {edu.courses.map((course, i) => (
@@ -181,9 +183,9 @@ const EducationSection = () => {
           className="mt-12 grid grid-cols-3 gap-6"
         >
           {[
-            { val: '3 Years', label: 'Duration', color: '#00f5ff' },
-            { val: 'Très Bien', label: 'Mention', color: '#ffd700' },
-            { val: '2026', label: 'Graduated', color: '#7b2fff' },
+            { val: language === 'fr' ? '3 Ans' : '3 Years', label: t('edu.duration'), color: '#00f5ff' },
+            { val: 'Très Bien', label: t('edu.mention'), color: '#ffd700' },
+            { val: '2026', label: t('edu.graduated'), color: '#7b2fff' },
           ].map((stat, i) => (
             <motion.div
               key={i}

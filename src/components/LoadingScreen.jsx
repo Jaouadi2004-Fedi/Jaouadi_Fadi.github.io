@@ -1,21 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useLanguage } from '../context/LanguageContext';
 
 const LoadingScreen = ({ onComplete }) => {
+  const { t } = useLanguage();
   const [progress, setProgress] = useState(0);
   const [lines, setLines] = useState([]);
   const [done, setDone] = useState(false);
 
   const bootLines = [
-    '> Initializing FEDI_OS v2.4.0...',
-    '> Loading kernel modules...',
-    '> Mounting filesystem... [OK]',
-    '> Starting neural interface...',
-    '> Establishing secure connection...',
-    '> Loading portfolio assets...',
-    '> Calibrating UI renderer...',
-    '> All systems operational.',
-    '> Welcome, Recruiter.',
+    t('boot.line1'),
+    t('boot.line2'),
+    t('boot.line3'),
+    t('boot.line4'),
+    t('boot.line5'),
+    t('boot.line6'),
+    t('boot.line7'),
+    t('boot.line8'),
+    t('boot.line9'),
   ];
 
   useEffect(() => {
@@ -86,7 +88,7 @@ const LoadingScreen = ({ onComplete }) => {
                 FJ
               </div>
               <div className="font-orbitron text-xs tracking-[8px] text-slate-400 uppercase">
-                Portfolio System
+                {t('loading.portfolio')}
               </div>
             </motion.div>
 
@@ -101,7 +103,7 @@ const LoadingScreen = ({ onComplete }) => {
                 <span className="w-3 h-3 rounded-full bg-red-500" />
                 <span className="w-3 h-3 rounded-full bg-yellow-500" />
                 <span className="w-3 h-3 rounded-full bg-green-500" />
-                <span className="text-xs text-slate-500 ml-2 font-mono-tech">FEDI_OS_TERMINAL</span>
+                <span className="text-xs text-slate-500 ml-2 font-mono-tech">{t('loading.terminal')}</span>
               </div>
               <div className="space-y-1.5 min-h-[180px]">
                 {lines.map((line, i) => {
@@ -129,7 +131,7 @@ const LoadingScreen = ({ onComplete }) => {
             {/* Progress Bar */}
             <div className="space-y-2">
               <div className="flex justify-between items-center">
-                <span className="font-orbitron text-xs text-slate-400">LOADING</span>
+                <span className="font-orbitron text-xs text-slate-400">{t('loading.loading')}</span>
                 <span className="font-orbitron text-xs neon-text-cyan">{Math.floor(progress)}%</span>
               </div>
               <div className="h-1.5 bg-dark-card rounded-full overflow-hidden border border-dark-border">
@@ -151,7 +153,7 @@ const LoadingScreen = ({ onComplete }) => {
               animate={{ opacity: [0.5, 1, 0.5] }}
               transition={{ duration: 2, repeat: Infinity }}
             >
-              ESTABLISHING SECURE CONNECTION...
+              {t('loading.status')}
             </motion.div>
           </div>
         </motion.div>

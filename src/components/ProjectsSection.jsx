@@ -3,8 +3,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { FaExternalLinkAlt, FaGithub, FaCheckCircle, FaTimes } from 'react-icons/fa';
 import { projects } from '../data/portfolioData';
+import { useLanguage } from '../context/LanguageContext';
 
 const ProjectModal = ({ project, onClose }) => {
+  const { localized, t } = useLanguage();
   return (
     <AnimatePresence>
       <motion.div
@@ -48,34 +50,34 @@ const ProjectModal = ({ project, onClose }) => {
             </div>
             <div className="flex-1 min-w-0">
               <div className="font-mono-tech text-[10px] tracking-[0.2em] mb-1.5" style={{ color: project.color }}>
-                {project.category}
+                {localized(project.category)}
               </div>
-              <h3 className="font-orbitron text-xl font-bold text-white leading-tight">{project.title}</h3>
-              <p className="text-slate-400 text-sm mt-1.5 font-rajdhani">{project.subtitle}</p>
+              <h3 className="font-orbitron text-xl font-bold text-white leading-tight">{localized(project.title)}</h3>
+              <p className="text-slate-400 text-sm mt-1.5 font-rajdhani">{localized(project.subtitle)}</p>
               <div className="flex items-center gap-2 mt-3 px-3 py-1.5 rounded-full w-fit"
                 style={{ background: `${project.color}10`, border: `1px solid ${project.color}30` }}>
                 <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-                <span className="font-orbitron text-[10px] text-green-400 tracking-wider">{project.status.toUpperCase()}</span>
+                <span className="font-orbitron text-[10px] text-green-400 tracking-wider">{localized(project.status).toUpperCase()}</span>
               </div>
             </div>
           </div>
 
           {/* ── Description ── */}
           <div className="modal-section">
-            <div className="modal-label" style={{ color: project.color }}>Overview</div>
+            <div className="modal-label" style={{ color: project.color }}>{t('proj.modalOverview')}</div>
             <p className="text-slate-300 leading-relaxed font-rajdhani text-[15px]">
-              {project.longDescription}
+              {localized(project.longDescription)}
             </p>
           </div>
 
           {/* ── Features ── */}
           <div className="modal-section">
-            <div className="modal-label" style={{ color: project.color }}>Key Features</div>
+            <div className="modal-label" style={{ color: project.color }}>{t('proj.modalFeatures')}</div>
             <ul className="space-y-2.5">
               {project.features.map((f, i) => (
                 <li key={i} className="flex items-start gap-3 text-sm text-slate-300 font-rajdhani">
                   <FaCheckCircle className="mt-0.5 flex-shrink-0 text-xs" style={{ color: project.color }} />
-                  <span>{f}</span>
+                  <span>{localized(f)}</span>
                 </li>
               ))}
             </ul>
@@ -83,7 +85,7 @@ const ProjectModal = ({ project, onClose }) => {
 
           {/* ── Tech stack ── */}
           <div>
-            <div className="modal-label text-slate-500">Tech Stack</div>
+            <div className="modal-label text-slate-500">{t('proj.modalTech')}</div>
             <div className="flex flex-wrap gap-2">
               {project.technologies.map((t) => (
                 <span
@@ -109,6 +111,7 @@ const ProjectModal = ({ project, onClose }) => {
 
 
 const ProjectCard = ({ project, index, inView }) => {
+  const { localized, t } = useLanguage();
   const [hovered, setHovered] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -169,12 +172,12 @@ const ProjectCard = ({ project, index, inView }) => {
           <div className="absolute top-3 right-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-orbitron"
             style={{ background: `${project.color}15`, border: `1px solid ${project.color}40`, color: project.color }}>
             <span className="w-1.5 h-1.5 rounded-full bg-green-400" />
-            {project.status}
+            {localized(project.status)}
           </div>
 
           {/* Category */}
           <div className="absolute top-3 left-3 px-2.5 py-1 rounded font-orbitron text-xs text-slate-500 border border-dark-border bg-dark-bg/50">
-            {project.category}
+            {localized(project.category)}
           </div>
         </div>
 
@@ -184,12 +187,12 @@ const ProjectCard = ({ project, index, inView }) => {
             className="font-orbitron text-lg text-white mb-1 transition-colors duration-300"
             style={{ color: hovered ? project.color : '#fff' }}
           >
-            {project.title}
+            {localized(project.title)}
           </h3>
-          <div className="font-mono-tech text-xs text-slate-500 mb-3">{project.subtitle}</div>
+          <div className="font-mono-tech text-xs text-slate-500 mb-3">{localized(project.subtitle)}</div>
 
           <p className="text-slate-400 text-sm leading-relaxed font-rajdhani mb-5 line-clamp-3">
-            {project.description}
+            {localized(project.description)}
           </p>
 
           {/* Tech pills */}
@@ -209,7 +212,7 @@ const ProjectCard = ({ project, index, inView }) => {
             ))}
             {project.technologies.length > 4 && (
               <span className="text-xs font-mono-tech px-2 py-1 text-slate-500">
-                +{project.technologies.length - 4} more
+                +{project.technologies.length - 4} {t('proj.more')}
               </span>
             )}
           </div>
@@ -222,7 +225,7 @@ const ProjectCard = ({ project, index, inView }) => {
               whileHover={{ x: 3 }}
             >
               <FaExternalLinkAlt className="text-xs" />
-              VIEW DETAILS
+              {t('proj.viewDetails')}
             </motion.button>
             <motion.a
               href="#"
@@ -231,7 +234,7 @@ const ProjectCard = ({ project, index, inView }) => {
               whileHover={{ scale: 1.1 }}
             >
               <FaGithub />
-              SOURCE
+              {t('proj.source')}
             </motion.a>
           </div>
         </div>
@@ -243,6 +246,7 @@ const ProjectCard = ({ project, index, inView }) => {
 };
 
 const ProjectsSection = () => {
+  const { t } = useLanguage();
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.05 });
 
   return (
@@ -262,13 +266,13 @@ const ProjectsSection = () => {
           className="text-center mb-16"
         >
           <div className="font-mono-tech text-neon-cyan text-sm tracking-widest mb-3">
-            &gt; ls -la /projects
+            &gt; {t('proj.terminal')}
           </div><br /><br />
           <h2 className="font-orbitron text-4xl sm:text-5xl font-bold section-title text-white">
-            Featured <span className="neon-text-cyan">Projects</span>
+            {t('proj.title')} <span className="neon-text-cyan">{t('proj.titleSpan')}</span>
           </h2><br /><br />
           <p className="text-slate-400 mt-6 max-w-xl mx-auto font-rajdhani text-lg">
-            Real-world applications built with modern technologies — click any card for details
+            {t('proj.subtitle')}
           </p><br /><br />
         </motion.div>
 
@@ -286,7 +290,7 @@ const ProjectsSection = () => {
           transition={{ delay: 0.8 }}
           className="text-center mt-12 font-mono-tech text-xs text-slate-600"
         >
-          // MORE PROJECTS IN DEVELOPMENT — STAY TUNED
+          {t('proj.footer')}
         </motion.div>
       </div><br /><br />
     </section>

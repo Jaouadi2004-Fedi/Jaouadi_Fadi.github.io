@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import LoadingScreen from './components/LoadingScreen';
+import LanguageSelector from './components/LanguageSelector';
 import Navbar from './components/Navbar';
 import HeroSection from './components/HeroSection';
 import AboutSection from './components/AboutSection';
@@ -10,12 +11,14 @@ import EducationSection from './components/EducationSection';
 import ContactSection from './components/ContactSection';
 import Footer from './components/Footer';
 import ScrollProgress from './components/ScrollProgress';
+import { useLanguage } from './context/LanguageContext';
 
 function App() {
   const [loading, setLoading] = useState(true);
   const [cursor, setCursor] = useState({ x: 0, y: 0 });
   const [follower, setFollower] = useState({ x: 0, y: 0 });
   const [cursorHover, setCursorHover] = useState(false);
+  const { language, showSelector } = useLanguage();
 
   // Custom cursor tracking
   useEffect(() => {
@@ -41,6 +44,11 @@ function App() {
       window.removeEventListener('mouseover', onMouseOver);
     };
   }, []);
+
+  // Show language selector if no language chosen yet
+  if (showSelector) {
+    return <LanguageSelector />;
+  }
 
   return (
     <>

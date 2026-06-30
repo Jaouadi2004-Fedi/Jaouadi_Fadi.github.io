@@ -3,8 +3,10 @@ import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { FaBriefcase, FaCalendarAlt, FaBuilding } from 'react-icons/fa';
 import { experiences } from '../data/portfolioData';
+import { useLanguage } from '../context/LanguageContext';
 
 const ExperienceCard = ({ exp, index, inView }) => {
+  const { localized, t } = useLanguage();
   const isEven = index % 2 === 0;
 
   return (
@@ -35,7 +37,7 @@ const ExperienceCard = ({ exp, index, inView }) => {
             {exp.highlight && (
               <div className="flex items-center gap-2 mb-3">
                 <span className="text-xs font-orbitron text-neon-cyan px-2 py-0.5 rounded border border-neon-cyan/30 bg-neon-cyan/5 tracking-widest">
-                  ★ FEATURED
+                  ★ {t('exp.featured')}
                 </span>
               </div>
             )}
@@ -43,7 +45,7 @@ const ExperienceCard = ({ exp, index, inView }) => {
             <div className="flex items-start justify-between gap-4 mb-4">
               <div>
                 <h3 className="font-orbitron text-base text-white group-hover:text-neon-cyan transition-colors duration-300">
-                  {exp.role}
+                  {localized(exp.role)}
                 </h3>
                 <div className="flex items-center gap-2 mt-1 text-neon-purple text-sm font-orbitron">
                   <FaBuilding className="text-xs" />
@@ -56,13 +58,13 @@ const ExperienceCard = ({ exp, index, inView }) => {
                   {exp.period}
                 </div>
                 <span className="text-xs font-orbitron px-2 py-0.5 rounded border border-neon-purple/30 text-neon-purple bg-neon-purple/5">
-                  {exp.type}
+                  {localized(exp.type)}
                 </span>
               </div>
             </div>
 
             <p className="text-slate-400 text-sm leading-relaxed mb-4 font-rajdhani">
-              {exp.description}
+              {localized(exp.description)}
             </p>
 
             {/* Tech tags */}
@@ -119,12 +121,12 @@ const ExperienceCard = ({ exp, index, inView }) => {
             <FaBuilding className="text-xs" />
             {exp.company}
           </div>
-          <h3 className="font-orbitron text-sm text-white mb-1">{exp.role}</h3>
+          <h3 className="font-orbitron text-sm text-white mb-1">{localized(exp.role)}</h3>
           <div className="flex items-center gap-1.5 text-xs font-mono-tech text-slate-400 mb-3">
             <FaCalendarAlt className="text-xs" />
-            {exp.period} · {exp.type}
+            {exp.period} · {localized(exp.type)}
           </div>
-          <p className="text-slate-400 text-sm leading-relaxed mb-3 font-rajdhani">{exp.description}</p>
+          <p className="text-slate-400 text-sm leading-relaxed mb-3 font-rajdhani">{localized(exp.description)}</p>
           <div className="flex flex-wrap gap-2">
             {exp.technologies.map((tech) => (
               <span key={tech} className="text-xs font-mono-tech px-2 py-0.5 rounded border border-neon-cyan/20 text-neon-cyan/70">
@@ -139,6 +141,7 @@ const ExperienceCard = ({ exp, index, inView }) => {
 };
 
 const ExperienceSection = () => {
+  const { t } = useLanguage();
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.05 });
 
   return (
@@ -158,13 +161,13 @@ const ExperienceSection = () => {
           className="text-center mb-16"
         >
           <div className="font-mono-tech text-neon-pink text-sm tracking-widest mb-3">
-            &gt; WORK_HISTORY.log
+            &gt; {t('exp.terminal')}
           </div><br /><br />
           <h2 className="font-orbitron text-4xl sm:text-5xl font-bold section-title text-white">
-            <span className="neon-text-pink">Experience</span>
+            <span className="neon-text-pink">{t('exp.title')}</span>
           </h2><br /><br />
           <p className="text-slate-400 mt-6 max-w-xl mx-auto font-rajdhani text-lg">
-            Professional internships and real-world software development experience
+            {t('exp.subtitle')}
           </p><br /><br />
         </motion.div>
 
@@ -191,7 +194,7 @@ const ExperienceSection = () => {
         >
           <div className="flex items-center gap-3 px-6 py-3 rounded-full glass-card border border-neon-cyan/20 font-orbitron text-xs text-slate-400 tracking-widest">
             <FaBriefcase className="text-neon-cyan" />
-            3 PROFESSIONAL INTERNSHIPS COMPLETED
+            {experiences.length} {t('exp.badge')}
           </div>
         </motion.div>
       </div>

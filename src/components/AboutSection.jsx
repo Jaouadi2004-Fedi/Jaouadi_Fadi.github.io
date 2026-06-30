@@ -4,6 +4,7 @@ import { useInView } from 'react-intersection-observer';
 import { FaMapMarkerAlt, FaEnvelope, FaGithub, FaLinkedin, FaCode } from 'react-icons/fa';
 import { personalInfo, stats } from '../data/portfolioData';
 import profilePhoto from '../assets/Fedi.png';
+import { useLanguage } from '../context/LanguageContext';
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
@@ -11,6 +12,7 @@ const fadeInUp = {
 };
 
 const AboutSection = () => {
+  const { t } = useLanguage();
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
 
   return (
@@ -31,10 +33,10 @@ const AboutSection = () => {
           className="text-center mb-16"
         >
           <div className="font-mono-tech text-neon-cyan text-sm tracking-widest mb-3">
-            &gt; WHO_AM_I.exe
+            &gt; {t('about.terminal')}
           </div><br />
           <h2 className="font-orbitron text-4xl sm:text-5xl font-bold section-title text-white">
-            About <span className="neon-text-cyan">Me</span>
+            {t('about.title')} <span className="neon-text-cyan">{t('about.titleSpan')}</span>
           </h2><br />
         </motion.div>
 
@@ -88,15 +90,15 @@ const AboutSection = () => {
               {/* Status badge */}
               <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-2 px-4 py-1.5 rounded-full border border-neon-green/40 bg-dark-card text-xs font-mono-tech text-green-400 whitespace-nowrap">
                 <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-                OPEN TO WORK
+                {t('about.openToWork')}
               </div>
             </div>
 
             {/* Contact info */}
             <div className="space-y-3 w-full max-w-sm">
               {[
-                { icon: <FaMapMarkerAlt />, label: 'Location', value: 'Tunisia' },
-                { icon: <FaEnvelope />, label: 'Email', value: 'jawedifadi@gmail.com' },
+                { icon: <FaMapMarkerAlt />, label: t('about.location'), value: 'Tunisia' },
+                { icon: <FaEnvelope />, label: t('about.email'), value: 'jawedifadi@gmail.com' },
               ].map((item, i) => (
                 <div key={i} className="flex items-center gap-3 text-sm">
                   <span className="text-neon-cyan">{item.icon}</span>
@@ -136,23 +138,21 @@ const AboutSection = () => {
             {/* Bio card */}
             <div className="glass-card corner-bracket relative rounded-xl p-6 space-y-4">
               <div className="font-orbitron text-xs text-neon-purple tracking-widest mb-2"><br />
-                // BIO_DATA.json
+                {t('about.bioPrefix')}
               </div><br />
               <p className="text-slate-300 leading-relaxed text-base">
-                Passionate <span className="text-neon-cyan font-semibold">Full-Stack Developer</span> holding
-                a{' '}
+                {t('about.bio1')}{' '}
                 <span className="text-neon-purple font-semibold">
                   Licence en Technologies Informatiques (Mention Très Bien)
                 </span>
-                . I specialize in building modern, scalable web applications using{' '}
+                {t('about.bio1End')}{' '}
                 <span className="text-neon-cyan">React.js</span>,{' '}
-                <span className="text-neon-cyan">Java Spring Boot</span>, and modern web architectures.
+                <span className="text-neon-cyan">Java Spring Boot</span>{t('about.bio1Tail')}
               </p><br />
               <p className="text-slate-400 leading-relaxed text-base">
-                Driven by clean code, pixel-perfect UI, and solving real-world challenges through
-                technology. I've completed internships at{' '}
+                {t('about.bio2')}{' '}
                 <span className="text-neon-pink">DevNet</span>,{' '}
-                <span className="text-neon-pink">S2IT Innovation Service</span>, and{' '}
+                <span className="text-neon-pink">S2IT Innovation Service</span>{t('about.bio2Mid')}{' '}
                 <span className="text-neon-pink">Radio Nationale Tunisienne</span>.
               </p><br />
             </div><br />
@@ -160,6 +160,7 @@ const AboutSection = () => {
             {/* Stats Grid */}
             <div className="grid grid-cols-2 gap-5">
               {stats.map((stat, i) => {
+                const statLabel = t('stats.' + stat.id);
                 const colorKeys = ['cyan', 'purple', 'pink', 'green'];
                 const color = colorKeys[i % colorKeys.length];
                 const styles = {
@@ -184,7 +185,7 @@ const AboutSection = () => {
                       {stat.value}{stat.suffix}
                     </div>
                     <div className="font-rajdhani text-xs text-slate-400 tracking-wider uppercase mt-1">
-                      {stat.label}
+                      {statLabel}
                     </div>
                   </motion.div>
                 );
